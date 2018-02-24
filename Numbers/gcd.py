@@ -2,10 +2,9 @@
 https://en.wikipedia.org/wiki/Greatest_common_divisor#Using_Euclid's_algorithm
 
 Algorithm description(pseudocode):
-1) int a >= int b.
-2) Find remainder a // b, i.e. a % b
-3) If remainder = 0, return int b.
-4) Else repeat from step 2 for a = b, b = remainder.
+1) Find remainder of a // b, i.e. a % b
+2) If remainder = 0, return int b.
+3) Else repeat from step 2 for a = b, b = remainder.
 """
 
 
@@ -16,15 +15,10 @@ import random
 def gcd_1(a, b):
     """ Recursive implementation.
     """
-    a, b = max(a, b), min(a, b)  # determine which number is bigger
-
-    def gcd(a, b):
-        rem = a % b
-        if rem == 0:
-            return b
-        return gcd(b, rem)
-
-    return gcd(a, b)
+    rem = a % b
+    if rem == 0:
+        return b
+    return gcd_1(b, rem)
 
 
 def gcd_2(a, b):
