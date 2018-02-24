@@ -23,43 +23,30 @@ import random
 
 
 def is_power_simple(n, x):
-    """ Returns True n is a power of x,
-    False otherwise.
+    """ Returns True n is a power of x, False otherwise.
 
-    input: int n >= 2
-           int x >= 2
+    input: int n >= 2, int x >= 2
+    output: int
     """
+    # validating input
+    if n < 2 or x < 2:
+        raise Exception("input should be: int n >= 2, int x >= 2")
+
+    # checking if n is a power of x
     while n % x == 0:
         n //= x
     return n == 1
 
 
 def is_power(n, x):
-    """ Returns True n is a power of x,
-    False otherwise. Improved algorithm.
+    """ Returns True n is a power of x, False otherwise. Improved algorithm.
 
-    input: int n >= 0
-           int x >= 0
+    input: int n >= 2, int x >= 2
+    output: int
     """
     # validating input
-    if n < 0 or x < 0 or (n == 0 and x > 0):
-        raise Exception("Wrong input. Use int n >= 1, int x >= 0.")
-
-    # 0 ^ (any int n) = 0
-    if n == 0 and x == 0:
-        return True
-
-    # 0 ^ 0 = 1
-    if n == 1 and x == 0:
-        return True
-
-    # 1 ^ (any int) = 1
-    if n >= 1 and x == 1:
-        return True
-
-    # for any int x > 0, x ^ 0 = 1
-    if n == 1 and x > 0:
-        return True
+    if n < 2 or x < 2:
+        raise Exception("input should be: int n >= 2, int x >= 2")
 
     # creating a set of last digits for power of x
     endings = set()
@@ -75,18 +62,96 @@ def is_power(n, x):
     return n == 1
 
 
-# testing improved algorithm
-if __name__ == "__main__":
-    while True:
+def is_power_simple_2(n, x):
+    """ Returns power as int if n is a power of x, returns -1 otherwise.
+
+    input: int n >= 2, int x >= 2
+    output: int
+    """
+    # validating input
+    if n < 2 or x < 2:
+        raise Exception("input should be: int n >= 2, int x >= 2")
+
+    # checking if n is a power of x
+    p = 0  # power counter
+    while n % x == 0:
+        p += 1
+        n //= x
+    return p if n == 1 else -1
+
+
+def is_power_2(n, x):
+    """ Returns power as int if n is a power of x, returns -1 otherwise.
+
+    input: int n >= 2, int x >= 2
+    output: int
+    """
+    # validating input
+    if n < 2 or x < 2:
+        raise Exception("input should be: int n >= 2, int x >= 2")
+
+    # creating a set of last digits for power of x
+    endings = set()
+    curr = x % 10  # last digit of x to the current power, starting from power 1
+    # break out of the loop when digits start repeating
+    while curr not in endings:
+        endings.add(curr)
+        curr = (curr * x) % 10
+
+    # checking if n is a power of x
+    p = 0  # power counter
+    while n % x == 0 and n % 10 in endings:
+        p += 1
+        n //= x
+    return p if n == 1 else -1
+
+
+def test_value(is_power, t):
+    """ Testing is_power functions that return value of power.
+    """
+    for i in range(t):
         x = random.randrange(2, 10**6)
         k = random.randrange(2, 10**3)
         n = x ** k
-        if not is_power(n, x):
-            print("Error.")
-            print(f"number n = {n}")
-            print(f"power x = {x}")
-            break
-        else:
+        if is_power(n, x) == k:
             print("OK")
-            print(f"number n = {n}")
-            print(f"power x = {x}")
+            print(f"x = {x}")
+            print(f"k = {k}")
+            print(f"x ^ k = {n}")
+            print()
+        else:
+            print("Values that crashed the calculation are below.")
+            print(f"x = {x}")
+            print(f"k = {k}")
+            print(f"x ^ k = {n}")
+            raise Exception("Result is wrong.")
+
+
+def test_boolean(is_power, t):
+    """ Testing is_power functions that return boolean.
+    """
+    for i in range(t):
+        x = random.randrange(2, 10**6)
+        k = random.randrange(2, 10**3)
+        n = x ** k
+        if is_power(n, x):
+            print("OK")
+            print(f"x = {x}")
+            print(f"k = {k}")
+            print(f"x ^ k = {n}")
+            print()
+        else:
+            print("Values that crashed the calculation are below.")
+            print(f"x = {x}")
+            print(f"k = {k}")
+            print(f"x ^ k = {n}")
+            raise Exception("Result is wrong.")
+
+
+# testing all algorithms
+if __name__ == "__main__":
+    t = 10**3  # number of tests for each function
+    test_boolean(is_power_simple, t)
+    test_boolean(is_power, t)
+    test_value(is_power_simple_2, t)
+    test_value(is_power_2, t)
