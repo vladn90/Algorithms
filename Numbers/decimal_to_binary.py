@@ -5,6 +5,7 @@ def binary(n):
     """ Converts integer n from decimal to binary.
     input: integer
     output: integer
+    Time complexity: O(lg(n)). Space complexity: O(lg(n)).
     """
     # handles negative numbers
     negative = False
@@ -17,17 +18,13 @@ def binary(n):
     while n != 0:
         number.append(n % 2)
         n //= 2
-    # reverse array in-place
-    i, j = 0, len(number) - 1
-    while i < j:
-        number[i], number[j] = number[j], number[i]
-        i += 1
-        j -= 1
+
     # return binary number as integer
     bin_number = 0
     mult = 10 ** (len(number) - 1)
-    for digit in number:
-        bin_number += (digit * mult)
+    n_len = len(number)
+    for i in range(n_len - 1, -1, -1):
+        bin_number += (number[i] * mult)
         mult //= 10
     return bin_number if not negative else -bin_number
 
