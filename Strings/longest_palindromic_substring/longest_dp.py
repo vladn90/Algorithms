@@ -60,10 +60,12 @@ class Solution:
 
 if __name__ == "__main__":
     sol = Solution()
-
     # simple tests
-    string = "babad"
-    # string = "abacdfgdcaba"
-    # string = "ababa"
-    # string = "abbcdef"
-    print(sol.longest_palindrome(string))
+    assert sol.longest_palindrome("babad") == "bab"
+    assert sol.longest_palindrome("abacdfgdcaba") == "aba"
+    assert sol.longest_palindrome("ababa") == "ababa"
+    assert sol.longest_palindrome("abcddabc") == "dd"
+    assert sol.longest_palindrome("a") == "a"
+    assert sol.longest_palindrome("aa") == "aa"
+    assert sol.longest_palindrome("baaaa") == "aaaa"
+    assert sol.longest_palindrome("") == ""
