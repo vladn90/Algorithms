@@ -38,6 +38,20 @@ class Solution:
             result.append(curr)
         return result
 
+    def anti_diagonals(self, matrix):
+        """ Returns a new matrix(array of arrays) consisting of anti diagonals.
+        Concise solution. Each element in the same row in result has the same
+        sum i + j.
+        Time complexity: O(n ^ n). Space complexity: O(n).
+        """
+        n = len(matrix)
+        result = [[] for i in range(2 * n - 1)]
+        print(result)
+        for i in range(n):
+            for j in range(n):
+                result[i + j].append(matrix[i][j])
+        return result
+
 
 if __name__ == "__main__":
     sol = Solution()
