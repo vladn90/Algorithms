@@ -1,5 +1,8 @@
 """ Problem statement:
 https://leetcode.com/problems/isomorphic-strings/description/
+
+Very similar problem:
+https://leetcode.com/problems/word-pattern/description/
 """
 
 
