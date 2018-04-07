@@ -38,10 +38,30 @@ class Solution:
                 j -= 1
         return max_area
 
+    def max_area_2p_fast(self, coord):
+        """ Two pointers algorithm. Speed-up version.
+        Time complexity: O(n). Space complexity: O(1), n is len(coord).
+        """
+        i, j = 0, len(coord) - 1
+        max_area = 0
+        while i < j:
+            y1, y2 = coord[i], coord[j]
+            if y1 < y2:  # move left line
+                curr_area = (j - i) * y1
+                while coord[i] <= y1 and i < j:
+                    i += 1
+            else:  # move right line
+                curr_area = (j - i) * y2
+                while coord[j] <= y2 and i < j:
+                    j -= 1
+            if curr_area > max_area:
+                max_area = curr_area
+        return max_area
+
 
 if __name__ == "__main__":
     sol = Solution()
-    func = sol.max_area_2p
+    func = sol.max_area_2p_fast
 
     # simple tests
     assert func([1, 5, 4, 3]) == 6
