@@ -33,6 +33,7 @@ class Solution:
     def find_diff_3(self, s, t):
         """ XOR all ord value of letters of both strings, the value left after
         all XOR operations would be the ord of letter we're looking for.
+        Time complexity: O(n). Space complexity: O(1), n is len(s).
         """
         value = 0
         n = len(s)
@@ -41,10 +42,22 @@ class Solution:
         value ^= ord(t[-1])  # XOR extra letter from t
         return chr(value)
 
+    def find_diff_4(self, s, t):
+        """ Sum all ord values of string t and substract from it all ord values
+        or string s.
+        Time complexity: O(n). Space complexity: O(1), n is len(s).
+        """
+        value = 0
+        n = len(s)
+        for i in range(n):
+            value = value - ord(s[i]) + ord(t[i])
+        value += ord(t[-1])
+        return chr(value)
+
 
 if __name__ == "__main__":
     sol = Solution()
-    func = sol.find_diff_3
+    func = sol.find_diff_4
 
     # simple test
     s = "babc"
